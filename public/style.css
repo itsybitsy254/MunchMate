@@ -1,0 +1,248 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('/img/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+nav {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: burlywood;
+    border-radius: 5px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: center; /* Center the nav items horizontally */
+}
+
+nav li {
+    margin: 0 15px; /* Add margin between nav items */
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #141413;
+}
+
+.section {
+    display: none;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.active {
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(241, 210, 210);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2 {
+    color: burlywood;
+    border-bottom: 2px solid burlywood;
+    padding-bottom: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+p {
+    color: #dddce9;
+    margin-top: 10px;
+    font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.welcome {
+    margin-top: 180px;
+    padding-left: 3px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 15px 0;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#cart-list {
+    margin: 20px 0;
+}
+
+#total {
+    font-weight: bold;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button[type="submit"] {
+    background-color: #1ebb38;
+    margin-top: 10px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Container for the entire menu */
+#menu-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the category headers container */
+.menu-category-header-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    position: sticky; /* Keeps the categories fixed at the top */
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style for individual category headers */
+.menu-category-header {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+
+/* Container for category items */
+.category-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Style for each menu item */
+.menu-item {
+    flex: 1 0 30%; /* Adjust this based on your preference */
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    text-align: center;
+}
+
+.menu-item img {
+    border: 2px solid rgb(80, 243, 15); /* Add a border to highlight the image container */
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure the image is block-level for better spacing */
+    margin: 0 auto; /* Center the image horizontally */
+    max-height: 200px; /* Adjust height as needed to make images larger */
+}
+
+.hidden {
+    display: none;
+}
+
+.soft-alert {
+    position: fixed;
+    top: 10px;
+    right: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+#cart-items,
+#order-details {
+    color: white;
+}
+
+/* Style for input labels */
+label {
+    color: white;
+}
+
+#total {
+    color: white;
+}
+
+/* Set text color to white for menu item descriptions */
+.category-items-container .menu-item p {
+    color: black;
+}
+
+/* Set text color to white for menu item prices */
+.category-items-container .menu-item p.price {
+    color: black;
+}
+
+.cart-item {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 10px; /* Space between cart items */
+}
+
+.cart-item img {
+    border: 2px solid rgb(80, 243, 15); /* Add a border to highlight the image container */
+    max-width: 100px; /* Adjust to desired size for cart items */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure the image is block-level for better spacing */
+    margin-right: 10px; /* Space between image and text */
+}
+
+.cart-item button {
+    margin-left: auto; /* Push the remove button to the right */
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MunchMate Food Delivery App</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <header>
+        <h1>MunchMate</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#cart">Cart</a></li>
+                <li><a href="#checkout">Checkout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <h2>Welcome to MunchMate</h2>
+        <div class="welcome">
+        <p>🍔 Craving Something Delicious? 🍕 <br>
+            🍣MunchMate is the best place to get your favorite food delivered to your door step. 🚚<br>
+        </p><p>
+            Discover the best food delivered straight to your door with our easy-to-use Food Delivery App!<br>
+            🌮 Wide Variety of Cuisines: From sizzling pizzas 🍕 to juicy burgers 🍔, crispy fries 🍟, refreshing soft drinks 🥤<br>
+            🔥 Fresh and Hot: Our deliveries are quick to ensure your food arrives fresh and hot, just the way you like it.<br>
+            📱User-Friendly Interface: Navigate through our menu with ease, add items to your cart, and check out in a snap!<br>
+            </p><p>
+            📱 Download Our App Today and Satisfy Your Hunger!<br>
+             You order, we deliver.🚚</p>
+            </div>
+    </section>
+
+    <section id="menu">
+        <h2>Menu</h2>
+        <div id="soft-alert" class="soft-alert"></div>
+        <div id="menu-items" class="menu-categories"></div>
+    </section>
+
+    <section id="cart">
+        <h2>Cart</h2>
+        <div id="cart-items"></div>
+        <div id="total"></div>
+        <button id="complete-order">Complete Order</button>
+        <button id="continue-shopping">Continue Shopping</button>
+
+    </section>
+
+    <section id="checkout">
+        <h2>Checkout</h2>
+        <div id="order-details"></div>
+        <form id="checkout-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="phone no">Phone:</label>
+            <input type="phone no" id="phone no" name="phone no" required>
+            <label for="address">Address:</label>
+            <input type="address" id="address" name="address" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <script src="/public/script.js"></script>
+</body>
+</html>
