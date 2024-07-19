@@ -8,6 +8,8 @@ CSS
 JavaScript
 JSON Server
 
+The app can be acessed via ; [MunchMate-Food-Delivery-App](https://munch-mate-5nuz52t6u-vitalis-projects-f242feae.vercel.app/)
+
 ##Getting Started
 
 # 1 Clone the Repository
