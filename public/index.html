@@ -37,6 +37,19 @@
 
     <section id="menu">
         <h2>Menu</h2>
+        <div class="menu-controls">
+            <input type="text" id="search-bar" placeholder="Search for food...">
+            <button id="search-button">Search</button>
+            <label for="price-filter">Price:</label>
+            <select id="price-filter">
+                <option value="all">All Prices</option>
+                <option value="min15">Min $15</option>
+                <option value="max15">Max $15</option>
+            </select>
+            <button id="filter-button">Filter</button>
+            <button id="favorites-button">Favorites</button>
+
+        </div>
         <div id="soft-alert" class="soft-alert"></div>
         <div id="menu-items" class="menu-categories"></div>
     </section>
@@ -65,7 +78,9 @@
             <button type="submit">Submit</button>
         </form>
     </section>
-
+    <section id="favorites" style="display: none;">
+        <div id="favorite-items"></div>
+    </section>
     <script src="./script.js"></script>
 </body>
 </html>

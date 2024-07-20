@@ -246,3 +246,11 @@ label {
 .cart-item button {
     margin-left: auto; /* Push the remove button to the right */
 }
+/* Style for images in the Favorites section */
+#favorite-items .menu-item-image {
+    width: 100px;  /* Adjust the width as needed */
+    height: auto;  /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure it doesn’t overflow its container */
+    display: block; /* Remove any extra space below the image */
+    margin-bottom: 10px; /* Space below the image */
+}

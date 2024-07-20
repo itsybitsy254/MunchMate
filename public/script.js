@@ -1,35 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded');
     fetchMenuItems();
-
-    // Load application state from localStorage
     loadAppState();
 
-    // Add event listeners for navigation links
+    // Navigation
     document.querySelectorAll('header nav ul li a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = e.target.getAttribute('href').substring(1);
             console.log('Navigation link clicked:', targetId);
             showSection(targetId);
-            saveAppState(); // Save app state on navigation
+            saveAppState();
         });
     });
 
-    // Add event listener for the "Complete Order" button
+    // Complete Order Button
     const completeOrderButton = document.getElementById('complete-order');
     if (completeOrderButton) {
         completeOrderButton.addEventListener('click', () => {
             console.log('Complete Order button clicked');
             displayOrderDetails();
             showSection('checkout');
-            saveAppState(); // Save app state on order completion
+            saveAppState();
         });
     } else {
         console.error('Complete Order button not found');
     }
 
-    // Add event listener for the checkout form
+    // Checkout Form
     const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', (e) => {
@@ -40,14 +38,49 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Checkout form not found');
     }
 
-    // Show the correct section based on saved state
+    // Continue Shopping Button
+    const continueShoppingButton = document.getElementById('continue-shopping');
+    if (continueShoppingButton) {
+        continueShoppingButton.addEventListener('click', () => {
+            showSection('menu');
+            saveAppState();
+        });
+    } else {
+        console.error('Continue Shopping button not found');
+    }
+
+    // Real-Time Search
+    const searchBar = document.getElementById('search-bar');
+    if (searchBar) {
+        searchBar.addEventListener('input', (e) => searchMenuItems(e.target.value));
+    } else {
+        console.error('Search bar not found');
+    }
+
+    // Filter Functionality
+    const filterButton = document.getElementById('filter-button');
+    const priceFilter = document.getElementById('price-filter');
+    if (filterButton && priceFilter) {
+        filterButton.addEventListener('click', () => filterByPrice(priceFilter.value));
+    } else {
+        console.error('Filter button or price filter not found');
+    }
+
+    // Favorites Functionality
+    const favoritesButton = document.getElementById('favorites-button');
+    if (favoritesButton) {
+        favoritesButton.addEventListener('click', () => showSection('favorites'));
+    } else {
+        console.error('Favorites button not found');
+    }
+
+    // Load saved section
     const savedState = localStorage.getItem('appState');
     if (savedState) {
         const { currentSection } = JSON.parse(savedState);
         console.log('Loading saved section:', currentSection);
         showSection(currentSection);
     } else {
-        // Default to 'home' if no saved state
         showSection('home');
     }
 });
@@ -55,9 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchMenuItems() {
     try {
         const response = await fetch('https://munchdb.onrender.com/menu');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
         displayMenuItems(data);
     } catch (error) {
@@ -79,7 +110,7 @@ function displayMenuItems(menuItems) {
         categoryHeader.textContent = category;
         categoryHeader.addEventListener('click', () => {
             toggleCategoryItems(category);
-            saveAppState(); // Save app state on category toggle
+            saveAppState();
         });
 
         categoryHeaderContainer.appendChild(categoryHeader);
@@ -89,17 +120,20 @@ function displayMenuItems(menuItems) {
         categoryItemsContainer.id = `${category}-items`;
 
         menuItems[category].items.forEach(item => {
+            const isFavorite = favorites.includes(item.name.toLowerCase()) ? '❤️' : '🤍';
+
             const menuItemDiv = document.createElement('div');
             menuItemDiv.className = 'menu-item';
-
-            const imageUrl = new URL(item.picture, 'https://munchdb.onrender.com');  // adjust the base URL as needed
+            menuItemDiv.setAttribute('data-name', item.name.toLowerCase());
+            menuItemDiv.setAttribute('data-price', item.price.toFixed(2));
             menuItemDiv.innerHTML = `
-                <img src="${imageUrl.href}" alt="${item.name}" class="menu-item-image">
+                <img src="${item.picture}" alt="${item.name}" class="menu-item-image">
                 <div class="menu-item-details">
                     <h3>${item.name}</h3>
                     <p>${item.description}</p>
                     <p>Price: $${item.price.toFixed(2)}</p>
-                    <button onclick="addToCart('${item.name}', ${item.price}, '${imageUrl.href}')">Add to Cart</button>
+                    <button onclick="addToCart('${item.name}', ${item.price}, '${item.picture}')">Add to Cart</button>
+                    <button onclick="toggleFavorite('${item.name.toLowerCase()}', this)">${isFavorite}</button>
                 </div>
             `;
             categoryItemsContainer.appendChild(menuItemDiv);
@@ -107,11 +141,13 @@ function displayMenuItems(menuItems) {
 
         menuContainer.appendChild(categoryItemsContainer);
     });
+
+    updateFavorites();
 }
 
 let cart = [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-// Add to cart and save state
 function addToCart(name, price, imageUrl) {
     const existingItem = cart.find(item => item.name === name);
 
@@ -122,18 +158,11 @@ function addToCart(name, price, imageUrl) {
     }
 
     updateCart();
-    saveAppState(); // Save app state when adding to cart
+    saveAppState();
 
-    const alertContainer = document.getElementById('soft-alert');
-    alertContainer.textContent = `${name} added to cart`;
-    alertContainer.style.display = 'block';
-
-    setTimeout(() => {
-        alertContainer.style.display = 'none';
-    }, 2000); // Hide after 2 seconds (adjust as needed)
+    showSoftAlert(`${name} added to cart`);
 }
 
-// Update cart and save state
 function updateCart() {
     const cartContainer = document.getElementById('cart-items');
     cartContainer.innerHTML = '';
@@ -141,7 +170,6 @@ function updateCart() {
     cart.forEach(item => {
         const cartItemDiv = document.createElement('div');
         cartItemDiv.className = 'cart-item';
-
         cartItemDiv.innerHTML = `
             <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-image">
             <div class="cart-item-details">
@@ -155,10 +183,9 @@ function updateCart() {
 
     const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     document.getElementById('total').innerHTML = `Total: $${totalAmount.toFixed(2)}`;
-    saveAppState(); // Save app state when cart is updated
+    saveAppState();
 }
 
-// Remove from cart and save state
 function removeFromCart(name) {
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
@@ -173,7 +200,6 @@ function removeFromCart(name) {
     updateCart();
 }
 
-// Display order details
 function displayOrderDetails() {
     const orderDetails = document.getElementById('order-details');
     orderDetails.innerHTML = '';
@@ -195,7 +221,6 @@ function displayOrderDetails() {
     orderDetails.appendChild(totalDiv);
 }
 
-// Place order and clear cart
 function placeOrder() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
@@ -203,49 +228,25 @@ function placeOrder() {
     const order = {
         customer: { name, email },
         items: cart,
-        total: cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+        total: cart.reduce((total, item) => total + (item.price * item.quantity), 0),
+        date: new Date().toLocaleString()
     };
 
     console.log('Order placed:', order);
-    alert('Thank you for your order! Please Wait as we package your meal for Delivery...');
 
     cart = [];
     updateCart();
-    document.getElementById('checkout-form').reset();
-    clearOrderDetails();
-    showSection('home');
-    saveAppState(); // Save app state after placing order
+    alert('Order placed successfully!');
+    saveAppState();
 }
 
-function clearOrderDetails() {
-    const orderDetails = document.getElementById('order-details');
-    orderDetails.innerHTML = '';
-}
-
-// Continue shopping button
-const continueShoppingButton = document.getElementById('continue-shopping');
-if (continueShoppingButton) {
-    continueShoppingButton.addEventListener('click', () => {
-        showSection('menu');
-        saveAppState(); // Save app state on continue shopping
-    });
-} else {
-    console.error('Continue Shopping button not found');
-}
-
-// Show section
 function showSection(sectionId) {
     console.log(`Navigating to section: ${sectionId}`);
     document.querySelectorAll('section').forEach(section => {
-        if (section.id === sectionId) {
-            section.style.display = 'block';
-        } else {
-            section.style.display = 'none';
-        }
+        section.style.display = section.id === sectionId ? 'block' : 'none';
     });
 }
 
-// Toggle category items
 function toggleCategoryItems(category) {
     const categoryItemsContainers = document.querySelectorAll('.category-items-container');
     categoryItemsContainers.forEach(container => {
@@ -255,31 +256,116 @@ function toggleCategoryItems(category) {
             container.classList.add('hidden');
         }
     });
-    saveAppState(); // Save app state on category toggle
+    saveAppState();
 }
 
-// Save app state to localStorage
 function saveAppState() {
     const currentSection = Array.from(document.querySelectorAll('section')).find(section => section.style.display === 'block')?.id || 'home';
     const appState = {
         currentSection,
-        cart
+        cart,
+        favorites
     };
     console.log('Saving app state:', appState);
     localStorage.setItem('appState', JSON.stringify(appState));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// Load app state from localStorage
 function loadAppState() {
     const savedState = localStorage.getItem('appState');
     if (savedState) {
-        const { currentSection, cart: savedCart } = JSON.parse(savedState);
+        const { currentSection, cart: savedCart, favorites: savedFavorites } = JSON.parse(savedState);
         cart = savedCart || [];
+        favorites = savedFavorites || [];
         console.log('Loading saved cart:', cart);
-        updateCart(); // Ensure cart is updated based on saved state
+        updateCart();
+        updateFavorites();
         showSection(currentSection);
     } else {
-        // Default to 'home' if no saved state
         showSection('home');
     }
+}
+
+function toggleFavorite(itemName, button) {
+    const itemIndex = favorites.indexOf(itemName.toLowerCase());
+    let message;
+
+    if (itemIndex === -1) {
+        favorites.push(itemName.toLowerCase());
+        button.textContent = '❤️'; // Favorite icon
+        message = `${itemName} added to favorites!`;
+    } else {
+        favorites.splice(itemIndex, 1);
+        button.textContent = '🤍'; // Not favorite icon
+        message = `${itemName} removed from favorites!`;
+    }
+    
+    saveAppState();
+    updateFavorites();
+    showSoftAlert(message);
+}
+
+function updateFavorites() {
+    const favoritesContainer = document.getElementById('favorite-items');
+    favoritesContainer.innerHTML = '';
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    menuItems.forEach(item => {
+        const itemName = item.getAttribute('data-name');
+        if (favorites.includes(itemName)) {
+            const favoriteItemDiv = document.createElement('div');
+            favoriteItemDiv.className = 'favorite-item';
+            favoriteItemDiv.innerHTML = item.innerHTML;
+            favoritesContainer.appendChild(favoriteItemDiv);
+        }
+    });
+}
+
+// Real-Time Search
+const searchMenuItems = (query) => {
+    const menuItems = document.getElementById('menu-items');
+    const allItems = menuItems.querySelectorAll('.menu-item');
+    allItems.forEach(item => {
+        const itemName = item.getAttribute('data-name');
+        if (itemName.includes(query.toLowerCase())) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+};
+
+// Filter by Price Functionality
+const filterByPrice = (filterValue) => {
+    const menuItems = document.getElementById('menu-items');
+    const allItems = menuItems.querySelectorAll('.menu-item');
+    allItems.forEach(item => {
+        const itemPrice = parseFloat(item.getAttribute('data-price'));
+        switch (filterValue) {
+            case 'min15':
+                item.style.display = itemPrice >= 15 ? 'block' : 'none';
+                break;
+            case 'max15':
+                item.style.display = itemPrice <= 15 ? 'block' : 'none';
+                break;
+            default:
+                item.style.display = 'block';
+                break;
+        }
+    });
+};
+
+// Show soft alert
+function showSoftAlert(message) {
+    const alertContainer = document.getElementById('soft-alert');
+    if (!alertContainer) {
+        console.error('Soft alert container not found');
+        return;
+    }
+    alertContainer.textContent = message;
+    alertContainer.style.display = 'block';
+
+    setTimeout(() => {
+        alertContainer.style.display = 'none';
+    }, 2000);
 }
