@@ -237,6 +237,7 @@ function placeOrder() {
     cart = [];
     updateCart();
     alert('Order placed successfully! Please wait as we package your meal for Delivery');
+    showSection('home'); // Reload to home section
     saveAppState();
 }
 

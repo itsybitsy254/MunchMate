@@ -13,13 +13,13 @@ The app can be acessed via ; [MunchMate-Food-Delivery-App](https://munch-mate-ni
 Getting Started
 
 1 Clone the Repository
- git clone git@github.com:itsybitsy254/MunchMate.git
+git clone git@github.com:itsybitsy254/MunchMate.git
 
 #2 Install Dependencies
- npm install
+npm install
 
 #Start the JSON Server
- json-server --watch db.json --port 3000
+json-server --watch db.json --port 3000
 
 #Access the App
 #Open your browser and navigate to:

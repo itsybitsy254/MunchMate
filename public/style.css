@@ -151,7 +151,6 @@ form button[type="submit"]:hover {
     border-bottom: 1px solid #ddd;
 }
 
-/* Style for individual category headers */
 .menu-category-header {
     cursor: pointer;
     padding: 10px;
