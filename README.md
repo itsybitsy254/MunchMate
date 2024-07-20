@@ -10,34 +10,34 @@ JSON Server
 
 The app can be acessed via ; [MunchMate-Food-Delivery-App](https://munch-mate-5nuz52t6u-vitalis-projects-f242feae.vercel.app/)
 
-## Getting Started
+Getting Started
 
-## 1 Clone the Repository
-## git clone git@github.com:itsybitsy254/MunchMate.git
+1 Clone the Repository
+ git clone git@github.com:itsybitsy254/MunchMate.git
 
-## 2 Install Dependencies
-## npm install
+#2 Install Dependencies
+ npm install
 
-# Start the JSON Server
-## json-server --watch db.json --port 3000
+#Start the JSON Server
+ json-server --watch db.json --port 3000
 
-# Access the App
-# Open your browser and navigate to:
+#Access the App
+#Open your browser and navigate to:
 http://localhost:5500 (Frontend)
 http://localhost:3000 (Backend)
 
-# Usage
+#Usage
 
-# Fetch Menu Items: The application will load the list of menu items from the JSON server.
-# View Menu Details: Click on a menu category to view available items and their details.
-# Add to Cart: Click the "Add to Cart" button to add items to your cart.
-# View Cart: Navigate to the Cart section to review and modify your cart.
-# Complete Order: Proceed to Checkout to finalize your order.
+#Fetch Menu Items: The application will load the list of menu items from the JSON server.
+#view Menu Details: Click on a menu category to view available items and their details.
+#Add to Cart: Click the "Add to Cart" button to add items to your cart.
+#View Cart: Navigate to the Cart section to review and modify your cart.
+#complete Order: Proceed to Checkout to finalize your order.
 
 
-# API Endpoints
-# The application interacts with the following API endpoints:
+#API Endpoints
+#The application interacts with the following API endpoints:
 
-# Get Menu Items: GET https://munchdb.onrender.com/menu
-# Get Menu Item Details: GET https://munchdb.onrender.com/menu/:id
-# Update Cart: PATCH https://munchdb.onrender.com/cart/:id
+#Get Menu Items: GET https://munchdb.onrender.com/menu
+#Get Menu Item Details: GET https://munchdb.onrender.com/menu/:id
+#Update Cart: PATCH https://munchdb.onrender.com/cart/:id
