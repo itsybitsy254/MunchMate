@@ -18,12 +18,12 @@ nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* Use flexbox for horizontal layout */
-    justify-content: center; /* Center the nav items horizontally */
+    display: flex; 
+    justify-content: center; 
 }
 
 nav li {
-    margin: 0 15px; /* Add margin between nav items */
+    margin: 0 15px; 
 }
 
 nav a {
@@ -131,7 +131,7 @@ form button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Container for the entire menu */
+
 #menu-items {
     display: flex;
     flex-direction: column;
@@ -145,7 +145,7 @@ form button[type="submit"]:hover {
     width: 100%;
     background-color: #f8f8f8;
     padding: 10px;
-    position: sticky; /* Keeps the categories fixed at the top */
+    position: sticky; 
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid #ddd;
@@ -160,7 +160,7 @@ form button[type="submit"]:hover {
     margin: 5px;
 }
 
-/* Container for category items */
+
 .category-items-container {
     display: flex;
     flex-wrap: wrap;
@@ -171,7 +171,7 @@ form button[type="submit"]:hover {
 
 /* Style for each menu item */
 .menu-item {
-    flex: 1 0 30%; /* Adjust this based on your preference */
+    flex: 1 0 30%;
     box-sizing: border-box;
     padding: 10px;
     margin: 10px;
@@ -181,12 +181,12 @@ form button[type="submit"]:hover {
 }
 
 .menu-item img {
-    border: 2px solid rgb(80, 243, 15); /* Add a border to highlight the image container */
-    max-width: 100%; /* Ensure the image fits within its container */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensure the image is block-level for better spacing */
-    margin: 0 auto; /* Center the image horizontally */
-    max-height: 200px; /* Adjust height as needed to make images larger */
+    border: 2px solid rgb(80, 243, 15);
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
+    max-height: 200px; 
 }
 
 .hidden {
@@ -202,7 +202,7 @@ form button[type="submit"]:hover {
     padding: 10px 20px;
     border-radius: 5px;
     display: none;
-    z-index: 1000; /* Ensure it appears above other content */
+    z-index: 1000; 
 }
 
 #cart-items,
@@ -210,7 +210,7 @@ form button[type="submit"]:hover {
     color: white;
 }
 
-/* Style for input labels */
+
 label {
     color: white;
 }
@@ -219,38 +219,38 @@ label {
     color: white;
 }
 
-/* Set text color to white for menu item descriptions */
+
 .category-items-container .menu-item p {
     color: black;
 }
 
-/* Set text color to white for menu item prices */
+
 .category-items-container .menu-item p.price {
     color: black;
 }
 
 .cart-item {
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-    margin-bottom: 10px; /* Space between cart items */
+    display: flex;
+    align-items: center; 
+    margin-bottom: 10px; 
 }
 
 .cart-item img {
-    border: 2px solid rgb(80, 243, 15); /* Add a border to highlight the image container */
-    max-width: 100px; /* Adjust to desired size for cart items */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensure the image is block-level for better spacing */
-    margin-right: 10px; /* Space between image and text */
+    border: 2px solid rgb(80, 243, 15);
+    max-width: 100px; 
+    height: auto; 
+    display: block;
+    margin-right: 10px; 
 }
 
 .cart-item button {
-    margin-left: auto; /* Push the remove button to the right */
+    margin-left: auto;
 }
 /* Style for images in the Favorites section */
 #favorite-items .menu-item-image {
-    width: 100px;  /* Adjust the width as needed */
-    height: auto;  /* Maintain aspect ratio */
-    max-width: 100%; /* Ensure it doesn’t overflow its container */
-    display: block; /* Remove any extra space below the image */
-    margin-bottom: 10px; /* Space below the image */
+    width: 100px; 
+    height: auto; 
+    max-width: 100%; 
+    display: block; 
+    margin-bottom: 10px; 
 }

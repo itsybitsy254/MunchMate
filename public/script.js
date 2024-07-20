@@ -236,7 +236,7 @@ function placeOrder() {
 
     cart = [];
     updateCart();
-    alert('Order placed successfully!');
+    alert('Order placed successfully! Please wait as we package your meal for Delivery');
     saveAppState();
 }
 
