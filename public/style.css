@@ -151,6 +151,9 @@ form button[type="submit"]:hover {
     border-bottom: 1px solid #ddd;
 }
 
+.menu-category-header:focus {
+    outline: none;
+}
 .menu-category-header {
     cursor: pointer;
     padding: 10px;

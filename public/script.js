@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Complete Order Button
+
     const completeOrderButton = document.getElementById('complete-order');
     if (completeOrderButton) {
         completeOrderButton.addEventListener('click', () => {
@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Checkout form not found');
     }
 
-    // Continue Shopping Button
     const continueShoppingButton = document.getElementById('continue-shopping');
     if (continueShoppingButton) {
         continueShoppingButton.addEventListener('click', () => {
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Favorites button not found');
     }
 
-    // Load saved section
+
     const savedState = localStorage.getItem('appState');
     if (savedState) {
         const { currentSection } = JSON.parse(savedState);
@@ -234,12 +233,31 @@ function placeOrder() {
 
     console.log('Order placed:', order);
 
+    // Clear the cart
     cart = [];
     updateCart();
-    alert('Order placed successfully! Please wait as we package your meal for Delivery');
-    showSection('home'); // Reload to home section
+
+    // Show a success alert
+    alert('Order placed successfully! Please wait as we package your meal for delivery.');
+
+    // Clear the order details in the checkout section
+    const orderDetails = document.getElementById('order-details');
+    if (orderDetails) {
+        orderDetails.innerHTML = '';
+    }
+
+    // Clear the form inputs
+    const checkoutForm = document.getElementById('checkout-form');
+    if (checkoutForm) {
+        checkoutForm.reset();
+    }
+
+    // Navigate to the home section
+    showSection('home');
+
     saveAppState();
 }
+
 
 function showSection(sectionId) {
     console.log(`Navigating to section: ${sectionId}`);
@@ -322,7 +340,7 @@ function updateFavorites() {
     });
 }
 
-// Real-Time Search
+
 const searchMenuItems = (query) => {
     const menuItems = document.getElementById('menu-items');
     const allItems = menuItems.querySelectorAll('.menu-item');
